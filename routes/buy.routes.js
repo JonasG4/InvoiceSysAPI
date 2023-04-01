@@ -5,6 +5,7 @@ const { validateFields, validateJWT, allowedDocs } = require("../middleware");
 const {
   productExistById,
   invoiceExistById,
+  itemExistById,
 } = require("../helpers/db-validators");
 
 const {
@@ -13,6 +14,11 @@ const {
   createInvoice,
   updateInvoice,
 } = require("../controllers/invoice.controller");
+
+const {
+  getItems,
+  updateItem,
+} = require("../controllers/invoiceDetails.controller");
 
 const router = Router();
 
@@ -42,5 +48,27 @@ router.put(
     validateFields,
   ],
   updateInvoice
+);
+
+router.get(
+  "/:invoiceId/items",
+  [
+    check("invoiceId", "is not a mongoID").isMongoId(),
+    check("invoiceId").custom(invoiceExistById),
+    validateFields,
+  ],
+  getItems
+);
+
+router.put(
+  "/:invoiceId/items/:itemId",
+  [
+    check("invoiceId", "is not a mongoID").isMongoId(),
+    check("invoiceId").custom(invoiceExistById),
+    check("itemId").isMongoId(),
+    check("itemId").custom(itemExistById),
+    validateFields,
+  ],
+  updateItem
 );
 module.exports = router;
