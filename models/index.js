@@ -3,6 +3,8 @@ const Role = require("./role.model");
 const Server = require("./server");
 const User = require("./user.model");
 const Product = require("./product.model");
+const Invoice = require("./invoice.model")
+const InvoiceDetails = require("./invoice_details.model")
 
 module.exports = {
   Category,
@@ -10,4 +12,6 @@ module.exports = {
   Server,
   User,
   Product,
+  Invoice,
+  InvoiceDetails,
 };

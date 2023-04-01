@@ -17,7 +17,7 @@ const ProductSchema = Schema({
     required: true,
   },
   precio: {
-    type: Number,
+    type: Schema.Types.Decimal128,
     default: 0,
   },
   category: {
@@ -31,6 +31,9 @@ const ProductSchema = Schema({
   available: {
     type: Boolean,
     default: true,
+  },
+  image: {
+    type: String,
   },
 });
 
