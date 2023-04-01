@@ -16,7 +16,7 @@ const ProductSchema = Schema({
     ref: "User",
     required: true,
   },
-  precio: {
+  price: {
     type: Schema.Types.Decimal128,
     default: 0,
   },

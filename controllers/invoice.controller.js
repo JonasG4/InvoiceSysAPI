@@ -32,14 +32,18 @@ const getInvoiceById = async (req = request, res = response) => {
 const createInvoice = async (req, res = response) => {
   const { status, invoice, ...body } = req.body;
 
-  const products = [];
+  const car = [];
 
   body.car.map(async (product) => {
     await Product.findById(product.product).then((err, data) => {
       if (err) throw err;
-      products.push(data);
+      car.push({...product, subtotal: data.price * product.quatity});
     }).catch(err => console.log(err))
   });
+  
+  const total = car.reduce((accumulator, current) => accumulator + current.subtotal, 0);
+
+  
 
   res.status(200).json(products);
 };
