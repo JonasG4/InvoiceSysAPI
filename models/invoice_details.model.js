@@ -12,7 +12,7 @@ const InvoiceDetailsSchema = Schema({
      ref: "Product",
      required: true
     },
-    Quantity: {
+    quantity: {
      type: Number,
      required: true,
     },

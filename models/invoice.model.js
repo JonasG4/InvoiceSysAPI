@@ -1,14 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const InvoiceSchema = Schema({
-  customer: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
-  },
-  created_at: {
-    type: Date,
-    default: Date.now,
   },
   total: {
     type: Schema.Types.Decimal128,
@@ -18,6 +14,14 @@ const InvoiceSchema = Schema({
     type: Boolean,
     default: true,
   },
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 InvoiceSchema.methods.toJson = function () {

@@ -1,7 +1,8 @@
 const { request, response } = require("express");
 
 const jwt = require("jsonwebtoken");
-const User = require("../models/user.model");
+const { ObjectId } = require("mongoose").Types;
+const { User, Invoice } = require("../models/");
 
 const validateJWT = async (req = request, res = response, next) => {
   const token = req.header("x-token");
@@ -27,6 +28,26 @@ const validateJWT = async (req = request, res = response, next) => {
   }
 };
 
+const allowedDocs = async (req = request, res = response, next) => {
+  const { id } = req.params;
+  const token = req.header("x-token");
+
+  const invoice = await Invoice.findById(id);
+  const { uid } = jwt.verify(token, process.env.SECRET_KEY);
+  const user = await User.findById(uid);
+
+  if (user.role === "ADMIN_ROLE") return next();
+
+  const userInvoiceId = invoice.user.toString();
+
+  if (uid != userInvoiceId) {
+    return res.status(403).json({ msg: "This content is not allowed" });
+  } else {
+    next();
+  }
+};
+
 module.exports = {
   validateJWT,
+  allowedDocs,
 };

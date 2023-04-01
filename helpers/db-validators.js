@@ -1,6 +1,7 @@
-const { Category, Product } = require("../models");
+const { Category, Product, Invoice } = require("../models");
 const Role = require("../models/role.model");
 const User = require("../models/user.model");
+
 
 const isAValidRole = async (role = "") => {
   const roleExist = await Role.findOne({ role });
@@ -28,6 +29,11 @@ const productExistById = async (id) => {
   if (!productExist) throw new Error(`the product Id does not exist`);
 };
 
+const invoiceExistById = async (id) => {
+  const invoiceExist = await Invoice.findById(id);
+  if (!invoiceExist) throw new Error(`the invoice Id does not exist`);
+};
+
 const allowedCollections = async (collection = "", collections = []) => {
   const isIncluded = collections.includes(collection);
   if (!isIncluded)
@@ -37,11 +43,13 @@ const allowedCollections = async (collection = "", collections = []) => {
   return true;
 };
 
+
 module.exports = {
   isAValidRole,
   emailExist,
   userByIdExist,
   categoryExistById,
   productExistById,
+  invoiceExistById,
   allowedCollections,
 };
