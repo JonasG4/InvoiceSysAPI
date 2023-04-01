@@ -1,12 +1,9 @@
-Run Container:
+# API de Sistema de facturación
+### Usuarios
 
-```
-docker run -p 27017:27017 -d -v /Users/erwin_vides/Documents/UNIVO/nodejs mono-micro/03-rest-server-espanol/sever-poo/docker:/data/db --name
-server-poo mongo
-```
+### Categorias
 
-Start server
+### Productos
 
-```
-nodemon app.js
-```
+### Factura
+
